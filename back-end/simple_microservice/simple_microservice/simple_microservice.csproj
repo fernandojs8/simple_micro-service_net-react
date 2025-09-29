@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain_simple_microservice\Domain_simple_microservice.csproj" />
+    <ProjectReference Include="..\Service_simple_microservice\Service_simple_microservice.csproj" />
+  </ItemGroup>
+
 </Project>
