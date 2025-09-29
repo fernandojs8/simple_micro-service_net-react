@@ -16,7 +16,8 @@ namespace Service_simple_microservice.Services
             this._httpClient = httpClient;
             _endpoint = settings.Value.FakeStoreProductsEndPoint;
         }
-        public async Task<IEnumerable<Sale>> GetSalesAsync()
+
+        public async Task<IEnumerable<Sale>?> GetSalesAsync()
         {
             try
             {
@@ -33,27 +34,33 @@ namespace Service_simple_microservice.Services
 
                 var sales = new List<Sale>();
 
-                foreach (var item in products)
+                if (products != null)
                 {
-                    var sale = new Sale()
-                    {
-                        Category = item.category,
-                        Id = item.id,
-                        Price = item.price,
-                        Title = item.title,
-                        Date = DateTime.UtcNow.AddDays(-item.id)
-                    };
 
-                    sales.Add(sale);
+                    foreach (var item in products)
+                    {
+                        var sale = new Sale()
+                        {
+                            Category = item.category,
+                            Id = item.id,
+                            Price = item.price,
+                            Title = item.title,
+                            Date = DateTime.UtcNow.AddDays(-item.id)
+                        };
+
+                        sales.Add(sale);
+                    }
+
+                    // Return the transformed data
+
+                    return sales;
                 }
 
-                // Return the transformed data
-
-                return sales;
+                return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }
